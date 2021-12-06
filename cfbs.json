@@ -16,7 +16,7 @@
       "description": "This module enforces that directories in root's $PATH are not world or group writable.",
       "tags": ["manage", "security"],
       "subdirectory": "./root-path-enforce-permissions/",
-      "FIXMEdependencies": ["inventory-writable-directories-in-root-path"],
+      "dependencies": ["inventory-writable-directories-in-root-path"],
       "steps": [
         "copy ./root-path-enforce-group-other-not-writable.cf services/world-writable-directories-in-root-path/",
         "json ./cfbs/def.json def.json"
