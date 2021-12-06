@@ -60,7 +60,7 @@ bundle agent inventory_world_group_writable_root_path
         string => "$(_PATH_dirs)=$(with)",
         if => regcmp( "$(_group_writable_permstr_regex)", filestat( "$(_PATH_dirs)", permstr )),
         with =>  filestat( "$(_PATH_dirs)", gid ),
-        meta => { "inventory", "attribute_name=Group writable directory owners in root PATH" };
+        meta => { "inventory", "attribute_name=Group writable directories gid in root PATH" };
 
       "world_writable_dir[$(_PATH_dirs)]"
         string => "$(_PATH_dirs)",
