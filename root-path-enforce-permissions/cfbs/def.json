@@ -1,6 +1,6 @@
 {
     "vars": {
-        "control_common_bundlesequence_classification": [
+        "control_common_bundlesequence_end": [
             "default:root_path_enforce_group_other_not_writable"
         ]
     },
