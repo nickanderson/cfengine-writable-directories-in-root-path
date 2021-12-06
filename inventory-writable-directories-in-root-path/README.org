@@ -1,0 +1,15 @@
+It's a security risk to allow non-root users to write to directories in root's $PATH. This module provides inventory for reporting about directories in root's =$PATH= are world or group writable.
+
+* Reporting
+
+** Classes 
+:PROPERTIES:
+:ID:       21d9bdfe-be53-4795-8d36-dd144edbf65c
+:END:
+- =default:group_writable_dir_in_root_path= :: Namespace scoped class defined when at least one directory in root's =$PATH= is group writable.
+- =default:world_writable_dir_in_root_path= :: Namespace scoped class defined when at least one directory in root's =$PATH= is world writable.
+
+** Inventory
+- =Group writable directories in root's $PATH= :: List of directories from root's =$PATH= found to be group writable.
+- =Group writable directory owners in root's path= :: List of =directory=<GROUP OWNER>=  entries from root's =$PATH= found to be group writable.
+- =World writable directories in root's $PATH= :: List of directories from root's =$PATH= found to be world writable.

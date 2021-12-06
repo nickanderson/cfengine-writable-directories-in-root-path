@@ -1,0 +1,74 @@
+bundle agent __main__
+{
+  methods:
+      "default:inventory_world_group_writable_root_path";
+}
+bundle agent inventory_world_group_writable_root_path
+{
+  vars:
+
+      # Get the executing users $PATH from the environment if running as uid 0
+      # (root). We don't use the username because that could be non-root if
+      # there are more than 1 username with uid 0.
+
+      "_PATH_entities"
+        slist => { string_split( getenv( PATH, inf ),
+                                 ":",
+                                 inf ) },
+        # Note: Because of this constraint, all promises in this bundle are
+        #       basically restricted to evaluating only when the executing user
+        #       has uid 0.
+        if => strcmp( "0", "$(sys.user_data[uid])" );
+
+      # Store the perms string of the final target (in case of symlink)
+      "_PATH_dir[$(with)]"
+        string => filestat( "$(with)", permstr ),
+        with => filestat( "$(_PATH_entities)", linktarget );
+
+      # Get a list of dirs for iteration
+      "_PATH_dirs" slist => sort( getindices( _PATH_dir ) );
+
+  classes:
+
+      # For making subsequent decisions and for central reporting we define
+      # classes when there is a non-root writable directory found in root's
+      # $PATH.
+
+      "group_writable_dir_in_root_path"
+        expression => regcmp( ".....w....", filestat( "$(_PATH_dirs)", permstr ) ),
+        scope => "namespace",
+        meta => { "report" };
+
+      "world_writable_dir_in_root_path"
+        expression => regcmp(  "........w.", filestat( "$(_PATH_dirs)", permstr )),
+        scope => "namespace",
+        meta => { "report" };
+
+  vars:
+
+    world_writable_dir_in_root_path|group_writable_dir_in_root_path::
+      "group_writable_dir[$(_PATH_dirs)]"
+        string => "$(with)",
+        if => regcmp(  "........w.", $(with) ),
+        with =>  filestat( "$(_PATH_dirs)", permstr ),
+        meta => { "inventory", "attribute_name=Group writable directories in root's $PATH" };
+
+      # Inventory the owners of the group writable directories in roots path
+      "group_writable_dir_owner[$(_PATH_dirs)]"
+        string => "$(_PATH_dirs)=$(with)",
+        if => regcmp(  "........w.", $(with) ),
+        with =>  filestat( "$(_PATH_dirs)", gid ),
+        meta => { "inventory", "attribute_name=Group writable directory owners in root's path" };
+
+      "world_writable_dir[$(_PATH_dirs)]"
+        if => regcmp(  "........w.", filestat( "$(_PATH_dirs)", permstr )),
+        meta => { "inventory", "attribute_name=World writable directories in root's $PATH" };
+
+  reports:
+
+    group_writable_dir_in_root_path.(inform_mode|verbose_mode)::
+      "Group writable dir '$(_PATH_dirs)' = '$(group_writable_dir[$(_PATH_dirs)])' in root's $PATH";
+
+    world_writable_dir_in_root_path.(inform_mode|verbose_mode)::
+      "World writable dir '$(_PATH_dirs)' = '$(world_writable_dir[$(_PATH_dirs)])' in root's $PATH";
+}

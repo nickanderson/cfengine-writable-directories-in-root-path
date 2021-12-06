@@ -1,0 +1,10 @@
+{
+  "vars": {
+    "control_common_bundlesequence_classification": [
+      "default:inventory_writable_directories_in_root_path"
+    ]
+  },
+  "inputs": [
+    "services/world-writable-directories-in-root-path/inventory-writable-directories-in-root-path.cf"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "writable-directories-in-root-path",
+  "description": "Modules for inventorying and preventing World and Group writable directories in root's $PATH.",
+  "type": "module-repo",
+  "provides": {
+    "inventory-writable-directories-in-root-path": {
+      "description": "This module has a policy file which reports a string to the terminal, and to the inventory system.",
+      "tags": ["inventory"],
+      "subdirectory": "inventory-writable-directories-in-root-path",
+      "steps": [
+        "copy ./inventory-writable-directories-in-root-path.cf services/world-writable-directories-in-root-path/inventory-writable-directories-in-root-path.cf",
+        "json ./cfbs/def.json def.json"
+      ]
+    }
+  }
+}

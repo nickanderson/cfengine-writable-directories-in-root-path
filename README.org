@@ -1,0 +1,5 @@
+It's a security risk to allow non-root users to write to directories in root's $PATH. New binaries could be introduced that root may execute inadvertently. This repository provides modules for inventorying and enforcing that no directory in root's $PATH is world or group writable.
+
+* Modules provided
+- [[./inventory-writable-directories-in-root-path/][inventory-writable-directories-in-root-path]]
+-
