@@ -1,7 +1,7 @@
 {
   "vars": {
     "control_common_bundlesequence_classification": [
-      "default:inventory_writable_directories_in_root_path"
+      "default:inventory_world_group_writable_root_path"
     ]
   },
   "inputs": [
