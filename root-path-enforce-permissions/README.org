@@ -2,3 +2,5 @@ It's unsafe to allow anyone but root to write to root's path. This module ensure
 
 Note: This module is opinionated and does not allow the desired permissions for directories in root's path to be customized. It simply ensures that neither group owners nor other users can write to the directories.
 
+[[https://raw.githubusercontent.com/nickanderson/cfengine-writable-directories-in-root-path/main/root-path-enforce-permissions/changes-enforce-group-other-not-writable.png]]
+

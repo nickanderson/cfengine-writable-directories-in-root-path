@@ -2,4 +2,4 @@ It's a security risk to allow non-root users to write to directories in root's $
 
 * Modules provided
 - [[./inventory-writable-directories-in-root-path/][inventory-writable-directories-in-root-path]]
--
+- [[./root-path-enforce-permissions/][root-path-enforce-permissions]]

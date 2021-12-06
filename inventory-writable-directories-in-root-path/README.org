@@ -10,3 +10,5 @@ It's a security risk to allow non-root users to write to directories in root's $
 - =Group writable directories in root PATH= :: List of directories from root's =$PATH= found to be group writable.
 - =Group writable directories gid in root PATH= :: List of =directory=<GROUP ID>=  entries from root's =$PATH= found to be group writable.
 - =World writable directories in root PATH= :: List of directories from root's =$PATH= found to be world writable.
+
+[[https://raw.githubusercontent.com/nickanderson/cfengine-writable-directories-in-root-path/main/inventory-writable-directories-in-root-path/host-info-page-inventory-world-group-writeable-dirs-in-root-path.png]]
