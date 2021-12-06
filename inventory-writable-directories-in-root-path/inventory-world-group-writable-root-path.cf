@@ -7,6 +7,9 @@ bundle agent inventory_world_group_writable_root_path
 {
   vars:
 
+      "_group_writable_permstr_regex" string => ".....w....";
+      "_world_writable_permstr_regex" string => "........w.";
+
       # Get the executing users $PATH from the environment if running as uid 0
       # (root). We don't use the username because that could be non-root if
       # there are more than 1 username with uid 0.
@@ -35,12 +38,12 @@ bundle agent inventory_world_group_writable_root_path
       # $PATH.
 
       "group_writable_dir_in_root_path"
-        expression => regcmp( ".....w....", filestat( "$(_PATH_dirs)", permstr ) ),
+        expression => regcmp( "$(_group_writable_permstr_regex)", filestat( "$(_PATH_dirs)", permstr ) ),
         scope => "namespace",
         meta => { "report" };
 
       "world_writable_dir_in_root_path"
-        expression => regcmp(  "........w.", filestat( "$(_PATH_dirs)", permstr )),
+        expression => regcmp(  "$(_world_writable_permstr_regex)", filestat( "$(_PATH_dirs)", permstr )),
         scope => "namespace",
         meta => { "report" };
 
@@ -49,19 +52,19 @@ bundle agent inventory_world_group_writable_root_path
     world_writable_dir_in_root_path|group_writable_dir_in_root_path::
       "group_writable_dir[$(_PATH_dirs)]"
         string => "$(_PATH_dirs)",
-        if => regcmp(  "........w.", filestat( "$(_PATH_dirs)", $(with) )),
+        if => regcmp(  "$(_group_writable_permstr_regex)", filestat( "$(_PATH_dirs)", $(with) )),
         meta => { "inventory", "attribute_name=Group writable directories in root's $PATH" };
 
       # Inventory the owners of the group writable directories in roots path
       "group_writable_dir_owner[$(_PATH_dirs)]"
         string => "$(_PATH_dirs)=$(with)",
-        if => regcmp(  "........w.", $(with) ),
+        if => regcmp(  "$(_group_writable_permstr_regex)", filestat( "$(_PATH_dirs)", $(with) )),
         with =>  filestat( "$(_PATH_dirs)", gid ),
         meta => { "inventory", "attribute_name=Group writable directory owners in root's path" };
 
       "world_writable_dir[$(_PATH_dirs)]"
         string => "$(_PATH_dirs)",
-        if => regcmp(  "........w.", filestat( "$(_PATH_dirs)", permstr )),
+        if => regcmp(  "$(_world_writable_permstr_regex)", filestat( "$(_PATH_dirs)", permstr )),
         meta => { "inventory", "attribute_name=World writable directories in root's $PATH" };
 
   reports:
