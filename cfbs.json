@@ -8,7 +8,7 @@
       "tags": ["inventory"],
       "subdirectory": "./inventory-writable-directories-in-root-path/",
       "steps": [
-        "copy ./inventory-writable-directories-in-root-path.cf services/world-writable-directories-in-root-path/inventory-writable-directories-in-root-path.cf",
+        "copy ./inventory-world-group-writable-root-path.cf services/world-writable-directories-in-root-path/",
         "json ./cfbs/def.json def.json"
       ]
     }
