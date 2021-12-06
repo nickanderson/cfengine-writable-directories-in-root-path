@@ -48,9 +48,8 @@ bundle agent inventory_world_group_writable_root_path
 
     world_writable_dir_in_root_path|group_writable_dir_in_root_path::
       "group_writable_dir[$(_PATH_dirs)]"
-        string => "$(with)",
-        if => regcmp(  "........w.", $(with) ),
-        with =>  filestat( "$(_PATH_dirs)", permstr ),
+        string => "$(_PATH_dirs)",
+        if => regcmp(  "........w.", filestat( "$(_PATH_dirs)", $(with) )),
         meta => { "inventory", "attribute_name=Group writable directories in root's $PATH" };
 
       # Inventory the owners of the group writable directories in roots path
@@ -61,6 +60,7 @@ bundle agent inventory_world_group_writable_root_path
         meta => { "inventory", "attribute_name=Group writable directory owners in root's path" };
 
       "world_writable_dir[$(_PATH_dirs)]"
+        string => "$(_PATH_dirs)",
         if => regcmp(  "........w.", filestat( "$(_PATH_dirs)", permstr )),
         meta => { "inventory", "attribute_name=World writable directories in root's $PATH" };
 
