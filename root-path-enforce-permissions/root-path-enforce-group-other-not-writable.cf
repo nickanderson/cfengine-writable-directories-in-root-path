@@ -1,0 +1,8 @@
+bundle agent root_path_enforce_group_other_not_writable
+{
+  files:
+
+      "$(default:inventory_world_group_writable_root_path._PATH_dirs)"
+        perms => default:m( "g-w,o-w");
+
+}

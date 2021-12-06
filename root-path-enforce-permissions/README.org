@@ -1,0 +1,4 @@
+It's unsafe to allow anyone but root to write to root's path. This module ensures that no directory in root's path is writable by the group owner or by others.
+
+Note: This module is opinionated and does not allow the desired permissions for directories in root's path to be customized. It simply ensures that neither group owners nor other users can write to the directories.
+

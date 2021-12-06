@@ -4,11 +4,21 @@
   "type": "module-repo",
   "provides": {
     "inventory-writable-directories-in-root-path": {
-      "description": "This module has a policy file which reports a string to the terminal, and to the inventory system.",
-      "tags": ["inventory"],
+      "description": "This module inventories directories in root's $PATH that are world or group writable.",
+      "tags": ["inventory", "security"],
       "subdirectory": "./inventory-writable-directories-in-root-path/",
       "steps": [
         "copy ./inventory-world-group-writable-root-path.cf services/world-writable-directories-in-root-path/",
+        "json ./cfbs/def.json def.json"
+      ]
+    },
+    "root-path-enforce-permissions": {
+      "description": "This module enforces that directories in root's $PATH are not world or group writable.",
+      "tags": ["manage", "security"],
+      "subdirectory": "./root-path-enforce-permissions/",
+      "FIXMEdependencies": ["inventory-writable-directories-in-root-path"],
+      "steps": [
+        "copy ./root-path-enforce-group-other-not-writable.cf services/world-writable-directories-in-root-path/",
         "json ./cfbs/def.json def.json"
       ]
     }

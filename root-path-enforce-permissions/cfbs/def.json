@@ -1,0 +1,10 @@
+{
+    "vars": {
+        "control_common_bundlesequence_classification": [
+            "default:root_path_enforce_group_other_not_writable"
+        ]
+    },
+    "inputs": [
+        "services/world-writable-directories-in-root-path/root-path-enforce-group-other-not-writable.cf"
+    ]
+}
